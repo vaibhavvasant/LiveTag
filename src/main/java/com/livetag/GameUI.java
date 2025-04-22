@@ -19,7 +19,7 @@ import javafx.geometry.Insets;
 
 
 public class GameUI extends Application {
-
+    //field declarations
     private static final int GRID_SIZE = 12;
     private static final int CELL_SIZE = 30;
 
@@ -36,6 +36,7 @@ public class GameUI extends Application {
 
     @Override
     public void start(Stage stage) {
+        //setting up UI
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setStyle("-fx-background-color: black;");
@@ -43,14 +44,14 @@ public class GameUI extends Application {
         // grid.setVgap(1);
         
 
-
+        //painting cells black
         for (int row = 0; row < GRID_SIZE; row++) {
             for (int col = 0; col < GRID_SIZE; col++) {
                 Rectangle cell = new Rectangle(CELL_SIZE, CELL_SIZE, Color.BLACK);
                 cell.setStroke(Color.GRAY);
                 final int r = row;
                 final int c = col;
-
+                //change color on mouse click
                 cell.setOnMouseClicked(e -> {
                     if (!simulationRunning() && cell.getFill().equals(Color.BLACK)) {
                         if ((currentPlayerColor == Color.RED && player1Turns < 8) ||
@@ -75,18 +76,20 @@ public class GameUI extends Application {
             }
         }
 
+        //UI elements
         Button startBtn = new Button("Start");
         Button undoBtn = new Button("Undo");
         Button stopBtn = new Button("Stop");
         Button restartBtn = new Button("Restart");
         Button rulesButton = new Button("Rules");
+        //Button functionality
         rulesButton.setOnAction(e -> showRules());
-
         restartBtn.setOnAction(e -> resetGame());
         startBtn.setOnAction(e -> startSimulation());
         stopBtn.setOnAction(e -> stopSimulation());
         undoBtn.setOnAction(e -> undoLastMove());
 
+        //wrapping nodes
         VBox controls = new VBox(20, statusLabel, scoreLabel, startBtn, undoBtn, stopBtn, restartBtn, rulesButton);
         controls.setAlignment(Pos.CENTER);
 
